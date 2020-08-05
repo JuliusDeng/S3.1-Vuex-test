@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	import {mapState} from 'vuex' // state用法二 （须引入mapState 解构赋值）
+	import {mapState, mapGetters} from 'vuex' // state用法二 （须引入mapState 解构赋值）
 	export default {
 		data() {
 			return {
@@ -23,7 +23,14 @@
 			// console.log(JSON.stringify('this.list:',this.list)); // js-->JSON
 			// console.log(JSON.stringify('this.list:',this.listTwo)); // js-->JSON
 			// console.log('this.newList:', JSON.stringify(this.newList)); // js-->JSON
-			console.log('this.list:', JSON.stringify(this.list)); // js-->JSONlist
+			// console.log('this.list:', JSON.stringify(this.list)); // js-->JSONlist
+			
+			// Getters用法一 （直接通过$store.getters调用）
+			// console.log('this.$store.getters.activeList:', JSON.stringify(this.$store.getters.activeList));
+			// console.log('this.activeList:', JSON.stringify(this.activeList));
+			// console.log('this.getAct:', JSON.stringify(this.getAct));
+			console.log('this.getList:', JSON.stringify(this.getList));
+			console.log('this.getById:', JSON.stringify(this.getById(2)));
 		},
 		computed: {
 			// state用法二
@@ -43,7 +50,14 @@
 			 // [Vue官方文档]当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 mapState 传一个字符串数组。
 			...mapState([
 				'list'
-			])
+			]),
+			// Getters用法二 （使用 ...mapGetters）
+			  // (1) 直接以数组形式引
+			...mapGetters(['activeList', 'getList', 'getById']),
+				// (2) 以对象形式引
+			...mapGetters({
+				getAct: 'activeList',
+			})	
 		},
 		methods: {
 			
